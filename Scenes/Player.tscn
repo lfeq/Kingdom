@@ -1,7 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cx0fqvl2ql0ym"]
+[gd_scene load_steps=20 format=3 uid="uid://cx0fqvl2ql0ym"]
 
 [ext_resource type="Texture2D" uid="uid://7hin4in8lek4" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_aouja"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_psvwa"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="3_2wkmi"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerIdleState.gd" id="3_aeieq"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerRunState.gd" id="5_1h0l8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ls3ej"]
 atlas = ExtResource("1_aouja")
@@ -115,3 +118,17 @@ frame_progress = 0.997313
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13)
 shape = SubResource("CircleShape2D_yobbm")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
+script = ExtResource("3_2wkmi")
+startingState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moveState")]
+script = ExtResource("3_aeieq")
+moveState = NodePath("../Run")
+animationName = "Idle"
+
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("5_1h0l8")
+idleState = NodePath("../Idle")
+animationName = "Run"
