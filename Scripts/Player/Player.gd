@@ -11,10 +11,14 @@ extends CharacterBody2D
 ## Defines the maximun movement speed of the player.
 @export var maxMovementSpeed: float = 400
 
+## Defines the last direction the player moved to.
+var lastLookAtDirection: Vector2
+
 ## Called when the node is added to the scene.
 ## Initializes the state machine with the current instance (self).
 func _ready() -> void:
 	stateMachine.init(self)
+	lastLookAtDirection = Vector2.ZERO
 	
 ## Handles unhandled input events.
 ## Passes the input event to the state machine for processing.

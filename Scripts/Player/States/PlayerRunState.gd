@@ -30,6 +30,8 @@ func processInput(event: InputEvent) -> IState:
 ## Returns the new state if a transition occurs, otherwise returns null.
 func processPhysics(delta: float) -> IState:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if direction != Vector2.ZERO:
+		parent.lastLookAtDirection = direction
 	if direction == Vector2.ZERO:
 		return idleState
 	parent.velocity = direction * movementSpeed
