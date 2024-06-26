@@ -1,10 +1,60 @@
-[gd_scene load_steps=20 format=3 uid="uid://cx0fqvl2ql0ym"]
+[gd_scene load_steps=34 format=3 uid="uid://cx0fqvl2ql0ym"]
 
 [ext_resource type="Texture2D" uid="uid://7hin4in8lek4" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_aouja"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_psvwa"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="3_2wkmi"]
 [ext_resource type="Script" path="res://Scripts/Player/States/PlayerIdleState.gd" id="3_aeieq"]
 [ext_resource type="Script" path="res://Scripts/Player/States/PlayerRunState.gd" id="5_1h0l8"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerAttackState.gd" id="6_ivoep"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerSecondAttack.gd" id="7_of878"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytc4e"]
+atlas = ExtResource("1_aouja")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv0iw"]
+atlas = ExtResource("1_aouja")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1ds3"]
+atlas = ExtResource("1_aouja")
+region = Rect2(384, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt8d8"]
+atlas = ExtResource("1_aouja")
+region = Rect2(576, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvgt3"]
+atlas = ExtResource("1_aouja")
+region = Rect2(768, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pibt6"]
+atlas = ExtResource("1_aouja")
+region = Rect2(960, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp0og"]
+atlas = ExtResource("1_aouja")
+region = Rect2(0, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m75hr"]
+atlas = ExtResource("1_aouja")
+region = Rect2(192, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vopi"]
+atlas = ExtResource("1_aouja")
+region = Rect2(384, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb7x1"]
+atlas = ExtResource("1_aouja")
+region = Rect2(576, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfdwg"]
+atlas = ExtResource("1_aouja")
+region = Rect2(768, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jllgb"]
+atlas = ExtResource("1_aouja")
+region = Rect2(960, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ls3ej"]
 atlas = ExtResource("1_aouja")
@@ -58,6 +108,57 @@ region = Rect2(960, 192, 192, 192)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ytc4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv0iw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1ds3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt8d8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvgt3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pibt6")
+}],
+"loop": false,
+"name": &"Attack_Side",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp0og")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m75hr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vopi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb7x1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfdwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jllgb")
+}],
+"loop": false,
+"name": &"Attack_Side2",
+"speed": 20.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Attack_Up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ls3ej")
 }, {
 "duration": 1.0,
@@ -108,12 +209,12 @@ radius = 19.0263
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_psvwa")
+maxMovementSpeed = 200.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_eobno")
-animation = &"Run"
+animation = &"Attack_Side2"
 autoplay = "Idle"
-frame_progress = 0.997313
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13)
@@ -123,12 +224,25 @@ shape = SubResource("CircleShape2D_yobbm")
 script = ExtResource("3_2wkmi")
 startingState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moveState")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moveState", "attackState")]
 script = ExtResource("3_aeieq")
 moveState = NodePath("../Run")
+attackState = NodePath("../Attack")
 animationName = "Idle"
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "attackState")]
 script = ExtResource("5_1h0l8")
 idleState = NodePath("../Idle")
+attackState = NodePath("../Attack")
 animationName = "Run"
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "secondAttackState")]
+script = ExtResource("6_ivoep")
+idleState = NodePath("../Idle")
+secondAttackState = NodePath("../SecondAttack")
+animationName = "Attack_Side"
+
+[node name="SecondAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("7_of878")
+idleState = NodePath("../Idle")
+animationName = "Attack_Side2"
