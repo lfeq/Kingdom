@@ -13,8 +13,13 @@ var shouldSecondAttack: bool = false
 
 ## Called when the state is entered.
 ## Initializes the second attack flag and can be extended to add custom logic for entering the attack state.
-func enter() -> void:
-	super()
+func enter() -> void:	
+	if parent.lastLookAtDirection.y < 0:
+		parent.animatedSprite.play("Attack_Up")	
+	elif parent.lastLookAtDirection.y > 0:
+		parent.animatedSprite.play("Attack_Down")
+	else:
+		parent.animatedSprite.play("Attack_Side")
 	shouldSecondAttack = false
 
 ## Processes frame updates specific to the attacking state.

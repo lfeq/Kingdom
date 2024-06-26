@@ -9,7 +9,12 @@ extends IState
 ## Called when the state is entered.
 ## Can be extended to add custom logic for entering the attack state.
 func enter() -> void:
-	super()
+	if parent.lastLookAtDirection.y < 0:
+		parent.animatedSprite.play("Attack_Up2")	
+	elif parent.lastLookAtDirection.y > 0:
+		parent.animatedSprite.play("Attack_Down2")
+	else:
+		parent.animatedSprite.play("Attack_Side2")
 
 ## Processes frame updates specific to the attacking state.
 ## Transitions to idleState if the attack animation is no longer playing.
