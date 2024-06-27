@@ -52,8 +52,7 @@ func drawMap() -> void:
 			if mapGrid[x][y]:
 				positions.append(Vector2i(x, y))
 				set_cells_terrain_connect(1, positions, 0, 0) # Add terrain to tilemap
-				print(numberOfGrassesAroundTile(x, y))
-				if numberOfGrassesAroundTile(x, y) >= 5:
+				if numberOfGrassesAroundTile(x, y) >= GRASS_DENSITY_LIMIT:
 					set_cell(0, Vector2i(x, y), 6, Vector2i(0, 0)) # Add foam to tilemap
 
 ## Returns the number of grasses around a given tile position.
