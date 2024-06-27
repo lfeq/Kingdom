@@ -396,7 +396,7 @@ maxMovementSpeed = 200.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_eobno")
-animation = &"Attack_Down2"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -429,3 +429,5 @@ animationName = "Attack_Side"
 script = ExtResource("7_of878")
 idleState = NodePath("../Idle")
 animationName = "Attack_Side2"
+
+[node name="Camera2D" type="Camera2D" parent="."]
