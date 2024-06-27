@@ -20,6 +20,5 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("2_b8srw")
 mapWidth = 40
 mapHeight = 40
-numberOfIterations = 7
 
 [node name="Player" parent="." instance=ExtResource("1_5dst6")]
