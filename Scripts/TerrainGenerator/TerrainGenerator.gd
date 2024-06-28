@@ -3,13 +3,15 @@
 
 extends TileMap
 
+## Signals when the level generator finished creating the level
+signal finishedMakingLevel
+
 # Map size settings.
 @export_category("Map Size")
 ## Width of the map
 @export var mapWidth: int = 5
 ## Width of the map
 @export var mapHeight: int = 5
-
 ## Number of iterations for the cellular automata algorithm and the grass density limit.
 @export var numberOfIterations: int = 5
 
@@ -27,6 +29,7 @@ func _ready():
 	for i in numberOfIterations:
 		iterateNewMap()
 	drawMap()
+	finishedMakingLevel.emit()
 
 ## Generates a random map by populating the map grid with random boolean values.
 func generateRandomMap() -> void:
@@ -69,3 +72,12 @@ func isGrass(t_xPosition: int, t_yPosition: int) -> bool:
 	if t_xPosition < 0 or t_xPosition >= mapWidth or t_yPosition < 0 or t_yPosition >= mapHeight:
 		return true
 	return mapGrid[t_xPosition][t_yPosition]
+
+## Returns a random tile position within the map that contains grass.
+func getRandomTilePosition() -> Vector2:
+	var x: int = randi() % mapWidth
+	var y: int = randi() % mapHeight
+	while not mapGrid[x][y]:
+		x = randi() % mapWidth
+		y = randi() % mapHeight
+	return map_to_local(Vector2i(x, y))
