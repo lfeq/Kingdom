@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6dvc052yrh5j"]
+
+[ext_resource type="TileSet" uid="uid://c0rfghwq0skee" path="res://Resources/Tilemaps/flat.tres" id="1_1kmpj"]
+[ext_resource type="Script" path="res://Scripts/TerrainGenerator/TerrainGenerator.gd" id="2_h8jp0"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource("1_1kmpj")
+format = 2
+layer_0/name = "Foam"
+layer_1/name = "Ground"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("2_h8jp0")
+mapWidth = 40
+mapHeight = 40

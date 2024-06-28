@@ -1,27 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://br7sw3ifa75yk"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/LevelManager/LevelManager.gd" id="1_beta3"]
-[ext_resource type="TileSet" uid="uid://c0rfghwq0skee" path="res://Resources/Tilemaps/flat.tres" id="1_rrf8v"]
-[ext_resource type="Script" path="res://Scripts/TerrainGenerator/TerrainGenerator.gd" id="2_b8srw"]
+[ext_resource type="PackedScene" uid="uid://b6dvc052yrh5j" path="res://Scenes/Tilemaps/MainTileMap.tscn" id="2_gngp5"]
+[ext_resource type="PackedScene" uid="uid://dgb1baek16vxd" path="res://Scenes/UI/LoadingScreen/loading_screen.tscn" id="4_e3vff"]
 
 [node name="Game" type="Node2D"]
 
 [node name="LevelManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_beta3")
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("1_rrf8v")
-format = 2
-layer_0/name = "Foam"
-layer_1/name = "Ground"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
-layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array()
-script = ExtResource("2_b8srw")
-mapWidth = 40
-mapHeight = 40
+[node name="TileMap" parent="." instance=ExtResource("2_gngp5")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LoadingScreen" parent="Camera2D" instance=ExtResource("4_e3vff")]
 
 [connection signal="finishedMakingLevel" from="TileMap" to="LevelManager" method="_on_tile_map_finished_making_level"]
+[connection signal="pressedPlay" from="Camera2D/LoadingScreen" to="LevelManager" method="_on_loading_screen_pressed_play"]
