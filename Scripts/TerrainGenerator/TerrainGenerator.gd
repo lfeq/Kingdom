@@ -14,6 +14,10 @@ signal finishedMakingLevel
 @export var mapHeight: int = 5
 ## Number of iterations for the cellular automata algorithm and the grass density limit.
 @export var numberOfIterations: int = 5
+## Probability to spawn a tree. (goes from 0 to 100) 
+@export var treeProbability: int = 40
+## Probability to spawn a mine. (goes from 0 to 100) 
+@export var mineProbability: int = 10
 
 ## Reference to the LoadingScreen node.
 @onready var loading_screen = $"../Camera2D/LoadingScreen"
@@ -66,6 +70,12 @@ func drawMap() -> void:
 				set_cells_terrain_connect(1, positions, 0, 0) # Add terrain to tilemap
 				if numberOfGrassesAroundTile(x, y) >= GRASS_DENSITY_LIMIT:
 					set_cell(0, Vector2i(x, y), 6, Vector2i(0, 0)) # Add foam to tilemap
+				if randi() % 100 + 1 <= treeProbability:
+					set_cell(2, Vector2i(x, y), 2, Vector2i(0, 0)) # Add tree to tilemap
+				elif (randi() % 100 + 1 <= mineProbability) and (!isEdgeOfTilemap(x, y) \
+				and (numberOfGrassesAroundTile(x, y) == 9) and (!isSurrounded(2, x, y))):
+					print(get_cell_source_id(2, Vector2i(x, y)))
+					set_cell(2, Vector2i(x, y), 4, Vector2i(0, 0)) # Add mine to tilemap
 			updateLoadingBar()
 
 ## Returns the number of grasses around a given tile position.
@@ -83,6 +93,12 @@ func isGrass(t_xPosition: int, t_yPosition: int) -> bool:
 		return true
 	return mapGrid[t_xPosition][t_yPosition]
 
+## Check if is on the edge of the tilemap
+func isEdgeOfTilemap(t_xPosition: int, t_yPosition: int) -> bool:
+	if t_xPosition == 0 or t_xPosition == (mapWidth - 1) or t_yPosition == 0 or t_yPosition == (mapHeight - 1):
+		return true
+	return false
+
 ## Returns a random tile position within the map that contains grass.
 func getRandomTilePosition() -> Vector2:
 	var x: int = randi() % mapWidth
@@ -91,6 +107,14 @@ func getRandomTilePosition() -> Vector2:
 		x = randi() % mapWidth
 		y = randi() % mapHeight
 	return map_to_local(Vector2i(x, y))
+	
+## Check if current tile has other painted tiles around it
+func isSurrounded(layer: int, t_xPosition: int, t_yPosition: int) -> bool:
+	for y in range(t_yPosition - 1, t_yPosition + 2):
+		for x in range(t_xPosition - 1, t_xPosition + 2):
+			if (get_cell_source_id(2, Vector2i(x, y)) != -1):
+				return true
+	return false
 
 ## Updates the loading bar based on the current step in the loading process.
 func updateLoadingBar() -> void:
