@@ -1,10 +1,12 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://c0rfghwq0skee"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://c0rfghwq0skee"]
 
 [ext_resource type="Texture2D" uid="uid://bw0g8w0osybx2" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="1_83kye"]
 [ext_resource type="Texture2D" uid="uid://b3aug30una25p" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Elevation.png" id="2_4ix5n"]
 [ext_resource type="Texture2D" uid="uid://bnnyc6rpxn5gq" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Ground/Shadows.png" id="3_feolr"]
+[ext_resource type="Texture2D" uid="uid://bqxo0t6kpurno" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Trees/Tree.png" id="3_u44we"]
 [ext_resource type="Texture2D" uid="uid://crw4tlpufbikx" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Water/Water.png" id="4_dgt60"]
 [ext_resource type="Texture2D" uid="uid://ojk0hbi6pnnb" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Water/Foam/Foam.png" id="5_htxog"]
+[ext_resource type="Texture2D" uid="uid://bsj5cqjq8kytb" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Gold Mine/GoldMine_Destroyed.png" id="5_r31eg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tifo4"]
 texture = ExtResource("1_83kye")
@@ -281,6 +283,24 @@ texture_region_size = Vector2i(64, 64)
 3:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:7/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i38pq"]
+texture = ExtResource("3_u44we")
+texture_region_size = Vector2i(64, 64)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/animation_columns = 4
+0:0/animation_speed = 5.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 64)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:8/0 = 0
+1:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:8/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0h12u"]
 texture = ExtResource("3_feolr")
 texture_region_size = Vector2i(64, 64)
@@ -299,6 +319,14 @@ texture_region_size = Vector2i(64, 64)
 1:2/0 = 0
 1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:2/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ikop7"]
+texture = ExtResource("5_r31eg")
+texture_region_size = Vector2i(64, 64)
+0:0/size_in_atlas = Vector2i(3, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pv87m"]
 resource_name = "Foam"
@@ -338,3 +366,5 @@ sources/1 = SubResource("TileSetAtlasSource_1s70i")
 sources/3 = SubResource("TileSetAtlasSource_0h12u")
 sources/6 = SubResource("TileSetAtlasSource_pv87m")
 sources/7 = SubResource("TileSetAtlasSource_1kxcc")
+sources/2 = SubResource("TileSetAtlasSource_i38pq")
+sources/4 = SubResource("TileSetAtlasSource_ikop7")

@@ -11,6 +11,15 @@ unique_name_in_owner = true
 script = ExtResource("1_beta3")
 
 [node name="TileMap" parent="." instance=ExtResource("2_gngp5")]
+layer_2/name = "Resources"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array()
+treeProbability = 20
+mineProbability = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
