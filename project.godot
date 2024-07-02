@@ -18,10 +18,15 @@ config/icon="res://icon.svg"
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://Assets/Tiny Swords/Tiny Swords (Update 010)/UI/Pointers/01.png"
 
 [dotnet]
 
 project/assembly_name="Godot Projects"
+
+[gui]
+
+theme/custom="res://Themes/MyTheme.tres"
 
 [input]
 

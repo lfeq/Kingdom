@@ -20,7 +20,8 @@ signal finishedMakingLevel
 @export var mineProbability: int = 10
 
 ## Reference to the LoadingScreen node.
-@onready var loading_screen = $"../Camera2D/LoadingScreen"
+@onready var loading_screen = $"../LoadingScreen"
+
 
 const GRASS_DENSITY_LIMIT: int = 5
 
@@ -74,7 +75,6 @@ func drawMap() -> void:
 					set_cell(2, Vector2i(x, y), 2, Vector2i(0, 0)) # Add tree to tilemap
 				elif (randi() % 100 + 1 <= mineProbability) and (!isEdgeOfTilemap(x, y) \
 				and (numberOfGrassesAroundTile(x, y) == 9) and (!isSurrounded(2, x, y))):
-					print(get_cell_source_id(2, Vector2i(x, y)))
 					set_cell(2, Vector2i(x, y), 4, Vector2i(0, 0)) # Add mine to tilemap
 			updateLoadingBar()
 

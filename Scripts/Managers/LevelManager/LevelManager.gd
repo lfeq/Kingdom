@@ -8,12 +8,12 @@ extends Node
 ## Reference to the TileMap node.
 @onready var tile_map = $"../TileMap"
 ## Reference to the LoadingScreen node.
-@onready var loading_screen = $"../Camera2D/LoadingScreen"
+@onready var loading_screen = $"../LoadingScreen"
 
 ## Called when the tile map has finished generating the level.
 ## Removes the Camera2D node and spawns the player at a random position on the tile map.
 func _on_tile_map_finished_making_level():
-	$"../Camera2D".queue_free()
+	loading_screen.queue_free()
 	spawnPlayer()
 
 ## Spawns the player at a random position on the tile map.

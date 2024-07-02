@@ -7,10 +7,10 @@ extends Node
 signal pressedPlay
 
 # References to various UI elements.
-@onready var play_button_panel = $PlayButtonPanel
-@onready var progress_bar = $LoadingScreenPanel/ProgressBar
-@onready var progress_bar_label = $LoadingScreenPanel/ProgressBarLabel
-@onready var loading_screen_panel = $LoadingScreenPanel
+@onready var play_button_panel = $CanvasLayer/PlayButtonPanel/Button
+@onready var progress_bar = $CanvasLayer/LoadingScreenPanel/ProgressBar
+@onready var progress_bar_label = $CanvasLayer/LoadingScreenPanel/ProgressBarLabel
+@onready var loading_screen_panel = $CanvasLayer/LoadingScreenPanel
 
 # Updates the value of the progress bar.
 # t_newValue: The new value to set for the progress bar.
