@@ -21,9 +21,7 @@ layer_2/tile_data = PackedInt32Array()
 treeProbability = 20
 mineProbability = 5
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="LoadingScreen" parent="Camera2D" instance=ExtResource("4_e3vff")]
+[node name="LoadingScreen" parent="." instance=ExtResource("4_e3vff")]
 
 [connection signal="finishedMakingLevel" from="TileMap" to="LevelManager" method="_on_tile_map_finished_making_level"]
-[connection signal="pressedPlay" from="Camera2D/LoadingScreen" to="LevelManager" method="_on_loading_screen_pressed_play"]
+[connection signal="pressedPlay" from="LoadingScreen" to="LevelManager" method="_on_loading_screen_pressed_play"]

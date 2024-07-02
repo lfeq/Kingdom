@@ -13,15 +13,16 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_l7wxa")
 
-[node name="PlayButtonPanel" type="Panel" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayButtonPanel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="PlayButtonPanel"]
+[node name="Button" type="Button" parent="CanvasLayer/PlayButtonPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,9 +37,8 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play"
 
-[node name="LoadingScreenPanel" type="Panel" parent="."]
+[node name="LoadingScreenPanel" type="Panel" parent="CanvasLayer"]
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -46,7 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ProgressBar" type="ProgressBar" parent="LoadingScreenPanel"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/LoadingScreenPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,7 +60,7 @@ offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBarLabel" type="Label" parent="LoadingScreenPanel"]
+[node name="ProgressBarLabel" type="Label" parent="CanvasLayer/LoadingScreenPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -77,4 +77,4 @@ text = "Loading..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="PlayButtonPanel/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PlayButtonPanel/Button" to="." method="_on_button_pressed"]
