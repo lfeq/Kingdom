@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cx0fqvl2ql0ym"]
+[gd_scene load_steps=59 format=3 uid="uid://cx0fqvl2ql0ym"]
 
 [ext_resource type="Texture2D" uid="uid://7hin4in8lek4" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_aouja"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_psvwa"]
@@ -390,7 +390,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_yobbm"]
 radius = 19.0263
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_acp2b"]
+radius = 24.0
+
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_psvwa")
 maxMovementSpeed = 200.0
 
@@ -398,9 +402,10 @@ maxMovementSpeed = 200.0
 sprite_frames = SubResource("SpriteFrames_eobno")
 animation = &"Idle"
 autoplay = "Idle"
+offset = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13)
+position = Vector2(0, -16)
 shape = SubResource("CircleShape2D_yobbm")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
@@ -431,3 +436,13 @@ idleState = NodePath("../Idle")
 animationName = "Attack_Side2"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Front" type="Area2D" parent="." groups=["PlayerSword"]]
+position = Vector2(64, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Front"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_acp2b")
+disabled = true

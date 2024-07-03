@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://imvaw5xq2qof"]
+
+[ext_resource type="Texture2D" uid="uid://bqxo0t6kpurno" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Trees/Tree.png" id="1_v0a6x"]
+[ext_resource type="Script" path="res://Scripts/Resources/Tree/TreeController.gd" id="1_wvnug"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="3_krslq"]
+[ext_resource type="Script" path="res://Scripts/Resources/Tree/States/TreeIdleState.gd" id="4_ormvb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gou0l"]
+atlas = ExtResource("1_v0a6x")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gctha"]
+atlas = ExtResource("1_v0a6x")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2c7s"]
+atlas = ExtResource("1_v0a6x")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o1yl"]
+atlas = ExtResource("1_v0a6x")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h08v5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gou0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gctha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2c7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o1yl")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcoph"]
+size = Vector2(37.5, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1clom"]
+size = Vector2(34.5, 33.5)
+
+[node name="Tree" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_wvnug")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_h08v5")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.315496
+offset = Vector2(0, -64)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
+script = ExtResource("3_krslq")
+startingState = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("4_ormvb")
+animationName = "Idle"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_vcoph")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1clom")
+
+[connection signal="area_entered" from="Area2D" to="StateMachine/IdleState" method="_on_area_2d_area_entered"]

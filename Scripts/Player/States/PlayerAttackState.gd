@@ -11,6 +11,8 @@ extends IState
 ## Flag indicating whether a second attack should be performed.
 var shouldSecondAttack: bool = false
 
+@onready var frontAttackCollider = $"../../Front/CollisionShape2D"
+
 ## Called when the state is entered.
 ## Initializes the second attack flag and can be extended to add custom logic for entering the attack state.
 func enter() -> void:	
@@ -20,6 +22,7 @@ func enter() -> void:
 		parent.animatedSprite.play("Attack_Down")
 	else:
 		parent.animatedSprite.play("Attack_Side")
+		frontAttackCollider.disabled = false
 	shouldSecondAttack = false
 
 ## Processes frame updates specific to the attacking state.
@@ -39,3 +42,6 @@ func processInput(event: InputEvent) -> IState:
 	if Input.is_action_just_pressed("Attack"):
 		shouldSecondAttack = true
 	return null
+	
+func exit() -> void:
+	frontAttackCollider.disabled = true

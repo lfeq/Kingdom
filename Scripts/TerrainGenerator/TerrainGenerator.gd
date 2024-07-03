@@ -21,7 +21,7 @@ signal finishedMakingLevel
 
 ## Reference to the LoadingScreen node.
 @onready var loading_screen = $"../LoadingScreen"
-
+@onready var treeRef: PackedScene = preload("res://Scenes/Resources/tree.tscn")
 
 const GRASS_DENSITY_LIMIT: int = 5
 
@@ -72,7 +72,8 @@ func drawMap() -> void:
 				if numberOfGrassesAroundTile(x, y) >= GRASS_DENSITY_LIMIT:
 					set_cell(0, Vector2i(x, y), 6, Vector2i(0, 0)) # Add foam to tilemap
 				if randi() % 100 + 1 <= treeProbability:
-					set_cell(2, Vector2i(x, y), 2, Vector2i(0, 0)) # Add tree to tilemap
+					#set_cell(2, Vector2i(x, y), 2, Vector2i(0, 0)) # Add tree to tilemap
+					spawnResource(Vector2i(x, y), treeRef)
 				elif (randi() % 100 + 1 <= mineProbability) and (!isEdgeOfTilemap(x, y) \
 				and (numberOfGrassesAroundTile(x, y) == 9) and (!isSurrounded(2, x, y))):
 					set_cell(2, Vector2i(x, y), 4, Vector2i(0, 0)) # Add mine to tilemap
@@ -112,7 +113,7 @@ func getRandomTilePosition() -> Vector2:
 func isSurrounded(layer: int, t_xPosition: int, t_yPosition: int) -> bool:
 	for y in range(t_yPosition - 1, t_yPosition + 2):
 		for x in range(t_xPosition - 1, t_xPosition + 2):
-			if (get_cell_source_id(2, Vector2i(x, y)) != -1):
+			if (get_cell_source_id(layer, Vector2i(x, y)) != -1):
 				return true
 	return false
 
@@ -120,3 +121,8 @@ func isSurrounded(layer: int, t_xPosition: int, t_yPosition: int) -> bool:
 func updateLoadingBar() -> void:
 	currentStep += 1
 	loading_screen.updateProgressBar(float(currentStep * 100) / totalSteps)
+	
+func spawnResource(position: Vector2i, resourceToSpawn: PackedScene) -> void:
+	var tempResource: Node = resourceToSpawn.instantiate()
+	tempResource.global_position = map_to_local(position)
+	add_sibling(tempResource)

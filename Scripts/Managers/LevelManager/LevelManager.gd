@@ -21,7 +21,7 @@ func _on_tile_map_finished_making_level():
 func spawnPlayer() -> void:
 	var tempPlayer: Node = playerRef.instantiate()
 	tempPlayer.global_position = tile_map.getRandomTilePosition()
-	add_child(tempPlayer)
+	add_sibling(tempPlayer)
 
 ## Called when the play button on the loading screen is pressed.
 ## Updates the loading screen label and starts the map creation process.
