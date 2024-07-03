@@ -5,10 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dgb1baek16vxd" path="res://Scenes/UI/LoadingScreen/loading_screen.tscn" id="4_e3vff"]
 
 [node name="Game" type="Node2D"]
-
-[node name="LevelManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("1_beta3")
+y_sort_enabled = true
 
 [node name="TileMap" parent="." instance=ExtResource("2_gngp5")]
 layer_2/name = "Resources"
@@ -20,6 +17,10 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 treeProbability = 20
 mineProbability = 5
+
+[node name="LevelManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_beta3")
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_e3vff")]
 

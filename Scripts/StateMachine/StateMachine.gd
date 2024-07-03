@@ -16,6 +16,9 @@ func init(parent: Player) -> void:
 	for child in get_children():
 		child.parent = parent
 	changeState(startingState)
+	
+func initNoPlayer() -> void:
+	changeState(startingState)
 
 ## Changes the current state to a new state.
 ## Calls the exit() method of the current state and the enter() method of the new state.
