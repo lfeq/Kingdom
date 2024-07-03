@@ -10,6 +10,8 @@ extends CharacterBody2D
 
 ## Defines the maximun movement speed of the player.
 @export var maxMovementSpeed: float = 400
+## Defines the damage the player does
+@export var damage: float = 15
 
 ## Defines the last direction the player moved to.
 var lastLookAtDirection: Vector2
@@ -18,7 +20,7 @@ var lastLookAtDirection: Vector2
 ## Initializes the state machine with the current instance (self).
 func _ready() -> void:
 	stateMachine.init(self)
-	lastLookAtDirection = Vector2.ZERO
+	lastLookAtDirection = Vector2.ONE
 	
 ## Handles unhandled input events.
 ## Passes the input event to the state machine for processing.
@@ -34,3 +36,9 @@ func _physics_process(delta: float) -> void:
 ## Passes the delta time to the state machine for frame processing.
 func _process(delta: float) -> void :
 	stateMachine.processFrame(delta)
+
+## Called when another area enters the player's attack collider.
+## If the area belongs to the "Tree" group, it inflicts damage to the tree.
+func _on_attack_collider_area_entered(area: Area2D):
+	if area.is_in_group("Tree"):
+		area.get_parent().takeDamage(damage)

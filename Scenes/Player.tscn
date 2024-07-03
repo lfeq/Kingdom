@@ -400,8 +400,9 @@ maxMovementSpeed = 200.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_eobno")
-animation = &"Idle"
+animation = &"Attack_Up"
 autoplay = "Idle"
+frame = 3
 offset = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -437,12 +438,14 @@ animationName = "Attack_Side2"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Front" type="Area2D" parent="." groups=["PlayerSword"]]
+[node name="AttackCollider" type="Area2D" parent="." groups=["PlayerSword"]]
 position = Vector2(64, 0)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Front"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollider"]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_acp2b")
 disabled = true
+
+[connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_collider_area_entered"]

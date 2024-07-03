@@ -1,10 +1,12 @@
 # TreeIdleState.gd
+## This script defines the TreeIdleState class, which extends IState. It represents the idle state of a tree.
+
 extends IState
 
+## The state to transition to when the tree takes damage.
+@export var damageState: IState
+
 ## Called when the state is entered.
+## Plays the idle animation for the tree.
 func enter() -> void:
 	$"../../AnimatedSprite2D".play("Idle")
-
-## Signal when tree got hit
-func _on_area_2d_area_entered(area):
-	print("Me han golpeado")
