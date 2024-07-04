@@ -8,14 +8,17 @@ extends IState
 ## The state to transition to when the player initiates an attack.
 @export var attackState: IState
 
+## Reference to the player.
+@onready var player = $"../.."
+
 ## The movement speed of the player in the running state.
 var movementSpeed: float = 400
 
 ## Called when the state is entered.
 ## Sets the movement speed to the parent's maximum movement speed.
 func enter() -> void:
-	super()
-	movementSpeed = parent.maxMovementSpeed
+	player.animatedSprite.play(animationName)
+	movementSpeed = player.maxMovementSpeed
 	
 ## Processes input events specific to the running state.
 ## Transitions to attackState if the "Attack" action is just pressed.
@@ -31,10 +34,10 @@ func processInput(event: InputEvent) -> IState:
 func processPhysics(delta: float) -> IState:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction != Vector2.ZERO:
-		parent.lastLookAtDirection = direction
+		player.lastLookAtDirection = direction
 	if direction == Vector2.ZERO:
 		return idleState
-	parent.velocity = direction * movementSpeed
-	parent.animatedSprite.flip_h = direction.x < 0
-	parent.move_and_slide()
+	player.velocity = direction * movementSpeed
+	player.animatedSprite.flip_h = direction.x < 0 # Rotate player
+	player.move_and_slide()
 	return null

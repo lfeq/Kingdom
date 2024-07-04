@@ -1,5 +1,6 @@
 ## StateMachine.gd
-## This script defines the StateMachine class, which extends Node. It manages the transitions between different states of the player.
+## This script defines the StateMachine class, which extends Node. 
+## It manages the transitions between different states of the player.
 
 class_name StateMachine
 extends Node
@@ -10,14 +11,8 @@ extends Node
 ## The current active state.
 var currentState: IState
 
-## Initializes the state machine with a reference to the parent Player instance.
-## Sets the parent for all child nodes and changes to the starting state.
-func init(parent: Player) -> void:
-	for child in get_children():
-		child.parent = parent
-	changeState(startingState)
-	
-func initNoPlayer() -> void:
+## Initializes the state machine and enteres the starting state.
+func init() -> void:
 	changeState(startingState)
 
 ## Changes the current state to a new state.
