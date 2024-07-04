@@ -1,5 +1,6 @@
-# PlayButton.gd
-# This script defines the PlayButton class, which extends Node. It manages the play button, updates the loading screen, and emits a signal when the play button is pressed.
+## PlayButton.gd
+## This script defines the PlayButton class, which extends Node. 
+## It manages the play button, updates the loading screen, and emits a signal when the play button is pressed.
 
 extends Node
 

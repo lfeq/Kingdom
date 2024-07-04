@@ -5,6 +5,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal picked_up_wood
+
 ## Onready variables for AnimatedSprite2D and StateMachine nodes.
 @onready var animatedSprite = $AnimatedSprite2D
 @onready var stateMachine = $StateMachine
@@ -49,3 +51,4 @@ func _on_attack_collider_area_entered(area: Area2D):
 func _on_pick_up_collider_area_entered(area: Area2D):
 	if area.is_in_group("Log"):
 		area.get_parent().queue_free()
+		picked_up_wood.emit()
