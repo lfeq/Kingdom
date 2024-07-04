@@ -1,5 +1,6 @@
 # TreeController.gd
-## This script defines the TreeController class, which extends Node2D. It manages the health and state of a tree, 
+## This script defines the TreeController class, which extends Node2D. 
+## It manages the health and state of a tree, 
 ## transitioning between states based on damage taken.
 
 extends Node2D
@@ -11,8 +12,10 @@ extends Node2D
 ## The state to transition to when the tree is chopped.
 @export var deathState: IState
 
-## Onready variables for the state machine.
+## Reference to the state machine.
 @onready var stateMachine = $StateMachine
+## Reference to the Animated Sprite.
+@onready var animatedSprite = $AnimatedSprite2D
 
 ## Current health of the tree.
 var currentHealth: float
@@ -21,7 +24,7 @@ var currentHealth: float
 ## Initializes the tree's health and the state machine.
 func _ready() -> void:
 	currentHealth = maxHealth
-	stateMachine.initNoPlayer()
+	stateMachine.init()
 
 ## Called every physics frame (fixed frame rate).
 ## Passes the delta time to the state machine for physics processing.

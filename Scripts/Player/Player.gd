@@ -1,5 +1,6 @@
 ## Player.gd
-## This script defines the Player class, which extends CharacterBody2D. It handles the player's state and animation.
+## This script defines the Player class, which extends CharacterBody2D. 
+## It handles the player's state and animation.
 
 class_name Player
 extends CharacterBody2D
@@ -17,9 +18,9 @@ extends CharacterBody2D
 var lastLookAtDirection: Vector2
 
 ## Called when the node is added to the scene.
-## Initializes the state machine with the current instance (self).
+## Initializes the state machine.
 func _ready() -> void:
-	stateMachine.init(self)
+	stateMachine.init()
 	lastLookAtDirection = Vector2.ONE
 	
 ## Handles unhandled input events.

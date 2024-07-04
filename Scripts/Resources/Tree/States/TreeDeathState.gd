@@ -4,7 +4,10 @@
 
 extends IState
 
+## Reference to tree.
+@onready var tree = $"../.."
+
 ## Called when the state is entered.
 ## Plays the idle animation for the tree.
 func enter() -> void:
-	$"../../AnimatedSprite2D".play("Death")
+	tree.animatedSprite.play(animationName)

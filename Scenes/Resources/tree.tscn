@@ -106,6 +106,7 @@ animationName = "Damage"
 
 [node name="DeathState" type="Node" parent="StateMachine"]
 script = ExtResource("6_ays77")
+animationName = "Death"
 
 [node name="Area2D" type="Area2D" parent="." groups=["Tree"]]
 collision_layer = 2

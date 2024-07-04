@@ -1,5 +1,6 @@
 ## IState.gd
-## This script defines the IState class, which extends Node. It represents a state in the player's state machine.
+## This script defines the IState class, which extends Node. 
+## It represents a state in the player's state machine.
 
 class_name IState
 extends Node
@@ -7,13 +8,10 @@ extends Node
 ## The name of the animation to play when this state is entered.
 @export var animationName: String
 
-## Reference to the parent Player instance.
-var parent: Player
-
 ## Called when the state is entered.
-## Plays the specified animation on the player's animated sprite.
+## Can be overridden to add custom exit logic.
 func enter() -> void:
-	parent.animatedSprite.play(animationName)
+	pass
 	
 ## Called when the state is exited.
 ## Can be overridden to add custom exit logic.

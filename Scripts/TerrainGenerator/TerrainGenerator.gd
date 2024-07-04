@@ -1,5 +1,6 @@
 # TerrainGenerator.gd
-# This script defines the TerrainGenerator class, which extends TileMap. It generates a random terrain map using cellular automata.
+# This script defines the TerrainGenerator class, which extends TileMap. 
+## It generates a random terrain map using cellular automata.
 
 extends TileMap
 
@@ -72,7 +73,6 @@ func drawMap() -> void:
 				if numberOfGrassesAroundTile(x, y) >= GRASS_DENSITY_LIMIT:
 					set_cell(0, Vector2i(x, y), 6, Vector2i(0, 0)) # Add foam to tilemap
 				if randi() % 100 + 1 <= treeProbability:
-					#set_cell(2, Vector2i(x, y), 2, Vector2i(0, 0)) # Add tree to tilemap
 					spawnResource(Vector2i(x, y), treeRef)
 				elif (randi() % 100 + 1 <= mineProbability) and (!isEdgeOfTilemap(x, y) \
 				and (numberOfGrassesAroundTile(x, y) == 9) and (!isSurrounded(2, x, y))):

@@ -1,5 +1,6 @@
 ## PlayerAttackState.gd
-## This script defines the PlayerAttackState class, which extends IState. It represents the attacking state of the player.
+## This script defines the PlayerAttackState class, which extends IState. 
+## It represents the attacking state of the player.
 
 extends IState
 
@@ -11,24 +12,28 @@ extends IState
 ## Flag indicating whether a second attack should be performed.
 var shouldSecondAttack: bool = false
 
-## Onready variables for front attack collider and the main attack collider.
+## Reference to the collision shape to disable after use.
 @onready var frontAttackCollider = $"../../AttackCollider/CollisionShape2D"
+## Reference to the position of the Area2D, to be changed depending 
+## on the direction of the player (Attack upwards, downward, etc...).
 @onready var attackCollider = $"../../AttackCollider"
+## Reference to the player.
+@onready var player = $"../.."
 
 ## Called when the state is entered.
 ## Initializes the second attack flag and can be extended to add custom logic for entering the attack state.
-func enter() -> void:	
-	if parent.lastLookAtDirection.y < 0:
-		parent.animatedSprite.play("Attack_Up")
+func enter() -> void:
+	if player.lastLookAtDirection.y < 0:
+		player.animatedSprite.play("Attack_Up")
 		attackCollider.position = Vector2(0, -48)
-	elif parent.lastLookAtDirection.y > 0:
-		parent.animatedSprite.play("Attack_Down")
+	elif player.lastLookAtDirection.y > 0:
+		player.animatedSprite.play("Attack_Down")
 		attackCollider.position = Vector2(0, 32)
-	elif parent.lastLookAtDirection.x > 0:
-		parent.animatedSprite.play("Attack_Side")
+	elif player.lastLookAtDirection.x > 0:
+		player.animatedSprite.play("Attack_Side")
 		attackCollider.position = Vector2(64, 0)
-	elif parent.lastLookAtDirection.x < 0:
-		parent.animatedSprite.play("Attack_Side")
+	elif player.lastLookAtDirection.x < 0:
+		player.animatedSprite.play("Attack_Side")
 		attackCollider.position = Vector2(-64, 0)
 	frontAttackCollider.disabled = false
 	shouldSecondAttack = false
@@ -37,7 +42,7 @@ func enter() -> void:
 ## Transitions to secondAttackState if the second attack flag is set, otherwise transitions to idleState when the animation finishes.
 ## Returns the new state if a transition occurs, otherwise returns null.
 func processFrame(delta: float) -> IState:
-	if parent.animatedSprite.is_playing():
+	if player.animatedSprite.is_playing():
 		return null
 	if shouldSecondAttack:
 		return secondAttackState
