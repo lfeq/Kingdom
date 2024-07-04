@@ -33,11 +33,11 @@ func iterateNewMap() -> void:
 ```
 Here are the results:
 
-![results](MapDemo.gif)
+![results](ReadmeFiles\MapDemo.gif)
 
 ## Resources
 
 ### Tree
 Trees can be cut down by getting hit, once the health of the tree reaches 0 it spawns a log to be picked up by the player.
 
-![CuttingTrees.gif](CuttingTrees.gif)
+![CuttingTrees.gif](ReadmeFiles\CuttingTrees.gif)
