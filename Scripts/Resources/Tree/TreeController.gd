@@ -8,6 +8,8 @@ extends Node2D
 @export var maxHealth: float = 50
 ## The state to transition to when the tree takes damage.
 @export var damageState: IState
+## The state to transition to when the tree is chopped.
+@export var deathState: IState
 
 ## Onready variables for the state machine.
 @onready var stateMachine = $StateMachine
@@ -33,10 +35,12 @@ func _process(delta: float) -> void :
 
 ## Handles damage taken by the tree.
 ## Reduces the tree's health by the specified damage amount and transitions to the damage state.
-## If the tree's health is depleted, it would transition to a "chopped" state (not yet implemented).
+## If the tree's health is depleted, it would transition to death state.
 ## TODO: Spawn resource so the player can pick it up
 func takeDamage(damage: float) -> void:
+	if currentHealth <= 0:
+		return
 	currentHealth -= damage
 	stateMachine.changeState(damageState)
-	#if currentHealth <= 0:
-		#TODO: Add a chopped state to the tree
+	if currentHealth <= 0:
+		stateMachine.changeState(deathState)
