@@ -43,3 +43,9 @@ func _process(delta: float) -> void :
 func _on_attack_collider_area_entered(area: Area2D):
 	if area.is_in_group("Tree"):
 		area.get_parent().takeDamage(damage)
+
+## Called when another area enters the player's pick up collider
+## If the area belongs to the "Log" group, it is added to the resources counter (not yet implemented).
+func _on_pick_up_collider_area_entered(area: Area2D):
+	if area.is_in_group("Log"):
+		area.get_parent().queue_free()
