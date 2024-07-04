@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://imvaw5xq2qof"]
+[gd_scene load_steps=16 format=3 uid="uid://imvaw5xq2qof"]
 
 [ext_resource type="Texture2D" uid="uid://bqxo0t6kpurno" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Trees/Tree.png" id="1_v0a6x"]
 [ext_resource type="Script" path="res://Scripts/Resources/Tree/TreeController.gd" id="1_wvnug"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="3_krslq"]
 [ext_resource type="Script" path="res://Scripts/Resources/Tree/States/TreeIdleState.gd" id="4_ormvb"]
 [ext_resource type="Script" path="res://Scripts/Resources/Tree/States/TreeDamageState.gd" id="5_2334s"]
+[ext_resource type="Script" path="res://Scripts/Resources/Tree/States/TreeDeathState.gd" id="6_ays77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpln7"]
 atlas = ExtResource("1_v0a6x")
@@ -13,6 +14,10 @@ region = Rect2(0, 192, 192, 192)
 [sub_resource type="AtlasTexture" id="AtlasTexture_up4ya"]
 atlas = ExtResource("1_v0a6x")
 region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqp70"]
+atlas = ExtResource("1_v0a6x")
+region = Rect2(0, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gou0l"]
 atlas = ExtResource("1_v0a6x")
@@ -45,6 +50,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_iqp70")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gou0l")
 }, {
 "duration": 1.0,
@@ -61,24 +74,20 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcoph"]
-size = Vector2(37.5, 38)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1clom"]
 size = Vector2(34.5, 33.5)
 
-[node name="Tree" type="Node2D" node_paths=PackedStringArray("damageState")]
+[node name="Tree" type="Node2D" node_paths=PackedStringArray("damageState", "deathState")]
 y_sort_enabled = true
 script = ExtResource("1_wvnug")
 damageState = NodePath("StateMachine/DamageState")
+deathState = NodePath("StateMachine/DeathState")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_h08v5")
-animation = &"Damage"
+animation = &"Death"
 autoplay = "Idle"
-frame = 1
-frame_progress = 1.0
 offset = Vector2(0, -64)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
@@ -95,10 +104,8 @@ script = ExtResource("5_2334s")
 idleState = NodePath("../IdleState")
 animationName = "Damage"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_vcoph")
+[node name="DeathState" type="Node" parent="StateMachine"]
+script = ExtResource("6_ays77")
 
 [node name="Area2D" type="Area2D" parent="." groups=["Tree"]]
 collision_layer = 2
