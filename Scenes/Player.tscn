@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cx0fqvl2ql0ym"]
+[gd_scene load_steps=60 format=3 uid="uid://cx0fqvl2ql0ym"]
 
 [ext_resource type="Texture2D" uid="uid://7hin4in8lek4" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_aouja"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_psvwa"]
@@ -393,6 +393,9 @@ radius = 19.0263
 [sub_resource type="CircleShape2D" id="CircleShape2D_acp2b"]
 radius = 24.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_faaom"]
+radius = 16.0
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_psvwa")
@@ -448,4 +451,11 @@ position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_acp2b")
 disabled = true
 
+[node name="PickUpCollider" type="Area2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpCollider"]
+shape = SubResource("CircleShape2D_faaom")
+
 [connection signal="area_entered" from="AttackCollider" to="." method="_on_attack_collider_area_entered"]
+[connection signal="area_entered" from="PickUpCollider" to="." method="_on_pick_up_collider_area_entered"]

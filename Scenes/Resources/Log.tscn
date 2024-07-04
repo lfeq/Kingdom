@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://d2mwttvov7tak"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/log/LogController.gd" id="1_7o7js"]
+[ext_resource type="Texture2D" uid="uid://60u18ppy6ys3" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Resources/W_Idle.png" id="2_vu3lo"]
+[ext_resource type="Texture2D" uid="uid://bify5bcs2ndq5" path="res://Assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Resources/W_Spawn.png" id="3_gw3x7"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="4_4bni6"]
+[ext_resource type="Script" path="res://Scripts/Resources/log/States/LogSpawnSate.gd" id="5_ntbfp"]
+[ext_resource type="Script" path="res://Scripts/Resources/log/States/LogIdleSate.gd" id="6_8u2ai"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kc0k"]
+atlas = ExtResource("2_vu3lo")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bybe"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_112qj"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecfdt"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojskk"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lccar"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebd5b"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd6x4"]
+atlas = ExtResource("3_gw3x7")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqe60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kc0k")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bybe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_112qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecfdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojskk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lccar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebd5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd6x4")
+}],
+"loop": false,
+"name": &"Spawn",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suj40"]
+size = Vector2(41, 21)
+
+[node name="Log" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_7o7js")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fqe60")
+animation = &"Idle"
+autoplay = "Spawn"
+frame_progress = 1.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
+script = ExtResource("4_4bni6")
+startingState = NodePath("SpawnState")
+
+[node name="SpawnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("5_ntbfp")
+idleState = NodePath("../Idle")
+animationName = "Spawn"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("6_8u2ai")
+animationName = "Idle"
+
+[node name="Area2D" type="Area2D" parent="." groups=["Log"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Log"]]
+position = Vector2(-0.5, 22.5)
+shape = SubResource("RectangleShape2D_suj40")

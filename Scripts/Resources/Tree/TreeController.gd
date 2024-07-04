@@ -39,7 +39,6 @@ func _process(delta: float) -> void :
 ## Handles damage taken by the tree.
 ## Reduces the tree's health by the specified damage amount and transitions to the damage state.
 ## If the tree's health is depleted, it would transition to death state.
-## TODO: Spawn resource so the player can pick it up
 func takeDamage(damage: float) -> void:
 	if currentHealth <= 0:
 		return

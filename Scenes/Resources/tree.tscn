@@ -114,3 +114,5 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1clom")
+
+[node name="SpawnResourcePosition" type="Marker2D" parent="."]
